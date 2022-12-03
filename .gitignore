@@ -10,3 +10,7 @@ buildNumber.properties
 # https://github.com/takari/maven-wrapper#usage-without-binary-jar
 .mvn/wrapper/maven-wrapper.jar
 .idea/
+/springCrafter.iml
+/spring-step-03/spring-step-03.iml
+/spring-step-02/spring-step-02.iml
+/spring-step-01/spring-step-01.iml
