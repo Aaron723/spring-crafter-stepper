@@ -5,9 +5,16 @@ import aaron.springcrafter.springframework.PropertyValues;
 import aaron.springcrafter.springframework.beans.factory.config.BeanDefinition;
 import aaron.springcrafter.springframework.beans.factory.config.BeanReference;
 import aaron.springcrafter.springframework.beans.factory.support.DefaultListableBeanFactory;
+import aaron.springcrafter.springframework.core.io.DefaultResourceLoader;
+import aaron.springcrafter.springframework.core.io.Resource;
 import aaron.springframework.test.bean.UserDao;
 import aaron.springframework.test.bean.UserService;
+import cn.hutool.core.io.IoUtil;
+import org.junit.Before;
 import org.junit.Test;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Ziqi Wang
@@ -16,24 +23,38 @@ import org.junit.Test;
 
 public class ApiTest {
 
-    @Test
-    public void test_BeanFactory() throws BeansException {
-        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+    private DefaultResourceLoader resourceLoader;
 
-        beanFactory.registerBeanDefinition("userDao", new BeanDefinition(UserDao.class));
-
-        PropertyValues propertyValues = new PropertyValues();
-
-        propertyValues.addPropertyValue(new PropertyValue("uid", "1001"));
-
-        propertyValues.addPropertyValue(new PropertyValue("userDao", new BeanReference("userDao")));
-
-        BeanDefinition beanDefinition = new BeanDefinition(UserService.class, propertyValues);
-
-        beanFactory.registerBeanDefinition("userService", beanDefinition);
-
-        UserService userService = (UserService) beanFactory.getBean("userService");
-
-        userService.queryUserInfo();
+    @Before
+    public void init() {
+        resourceLoader = new DefaultResourceLoader();
     }
+
+
+    @Test
+    public void test_classpath() throws IOException {
+        Resource resource = resourceLoader.getResource("classpath:important.properties");
+
+        InputStream inputStream = resource.getInputStream();
+        String content = IoUtil.readUtf8(inputStream);
+        System.out.println(content);
+    }
+
+    @Test
+    public void test_file() throws IOException {
+        Resource resource = resourceLoader.getResource("src/test/resources/important.properties");
+        InputStream inputStream = resource.getInputStream();
+        String content = IoUtil.readUtf8(inputStream);
+        System.out.println(content);
+    }
+
+    @Test
+    public void test_url() throws IOException {
+        Resource resource = resourceLoader.getResource("https://github.com/Aaron723/spring-crafter-stepper/tree/master/spring-step-05/src/test/java/aaron/springframework/test/resources/important.properties");
+        InputStream inputStream = resource.getInputStream();
+        String content = IoUtil.readUtf8(inputStream);
+        System.out.println(content);
+    }
+
+
 }
