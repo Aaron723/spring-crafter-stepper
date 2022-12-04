@@ -5,6 +5,7 @@ import aaron.springcrafter.springframework.PropertyValues;
 import aaron.springcrafter.springframework.beans.factory.config.BeanDefinition;
 import aaron.springcrafter.springframework.beans.factory.config.BeanReference;
 import aaron.springcrafter.springframework.beans.factory.support.DefaultListableBeanFactory;
+import aaron.springcrafter.springframework.beans.factory.xml.XmlBeanDefinitionReader;
 import aaron.springcrafter.springframework.core.io.DefaultResourceLoader;
 import aaron.springcrafter.springframework.core.io.Resource;
 import aaron.springframework.test.bean.UserDao;
@@ -24,6 +25,15 @@ import java.io.InputStream;
 public class ApiTest {
 
     private DefaultResourceLoader resourceLoader;
+
+    @Test
+    public void test_BeanFactory() {
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("classpath:spring.xml");
+        UserService userService = beanFactory.getBean("userService", UserService.class);
+        System.out.println("测试结果：" + userService.queryUserInfo());
+    }
 
     @Before
     public void init() {

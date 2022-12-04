@@ -11,7 +11,7 @@ public class UserService {
 
     private UserDao userDao;
 
-    public void queryUserInfo() {
-        System.out.println("query user information[" + userDao.queryUserName(uid) + "]");
+    public String queryUserInfo() {
+        return userDao.queryUserName(uid);
     }
 }
