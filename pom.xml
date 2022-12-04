@@ -12,6 +12,7 @@
         <module>spring-step-01</module>
         <module>spring-step-02</module>
         <module>spring-step-03</module>
+        <module>spring-step-04</module>
     </modules>
 
     <properties>
@@ -20,10 +21,16 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>4.13.2</junit.version>
         <cglib.version>3.3.0</cglib.version>
+        <hutool.version>5.8.10</hutool.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-all</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
