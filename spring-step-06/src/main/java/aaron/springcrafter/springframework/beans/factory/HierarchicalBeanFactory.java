@@ -5,5 +5,5 @@ package aaron.springcrafter.springframework.beans.factory;
  * @date 12/4/22 17:09
  */
 
-public interface HierarchicalBeanFactory {
+public interface HierarchicalBeanFactory  extends BeanFactory {
 }
